@@ -12,8 +12,7 @@ const { notFound, errorHandler } = require('./middlewares/errorHandler');
 const app = express();
 
 // ── CORS — doit être avant helmet ─────────────────────────────
-const allowedOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3001').split(',').map(o => o.trim());
-// const allowedOrigins = (process.env.CORS_ORIGIN || 'https://production.cosinus.ma').split(',').map(o => o.trim());
+const allowedOrigins = (process.env.CORS_ORIGIN || 'https://production.cosinus.ma').split(',').map(o => o.trim());
 
 app.use(cors({
   origin: (origin, cb) => {
