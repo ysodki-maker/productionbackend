@@ -16,7 +16,7 @@ exports.generateShareLink = async (req, res) => {
     const token = crypto.randomBytes(32).toString('hex');
     await project.update({ review_token: token, review_token_expires_at: null });
 
-    const frontendUrl = process.env.FRONTEND_URL || 'https://production.cosinus.ma';
+    const frontendUrl = process.env.FRONTEND_URL || 'https://production.magicwalls.ma';
     return r.success(res, {
       share_url: `${frontendUrl}/review/${token}`,
       token,
