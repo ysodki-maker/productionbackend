@@ -15,11 +15,15 @@ const app = express();
 const allowedOrigins = (process.env.CORS_ORIGIN || 'https://production.magicwalls.ma').split(',').map(o => o.trim());
 
 app.use(cors({
-  origin: (origin, cb) => {
-    // Autorise les requêtes sans origin (Postman, mobile, etc.)
-    if (!origin) return cb(null, true);
-    if (allowedOrigins.includes('*') || allowedOrigins.includes(origin)) return cb(null, true);
-    cb(new Error(`CORS bloqué pour : ${origin}`));
+origin: function (origin, callback) {
+    // Autoriser les requêtes sans origin (Postman, server-to-server, etc.)
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Non autorisé par CORS'));
+    }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
